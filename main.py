@@ -75,3 +75,27 @@ def word(text: str):
 
 print(word("Yo-Ho-Ho!"))
 print("Завершаем")
+
+# ====
+def decor(foo):
+    def prettify():
+        return f"=={foo()}=="
+    return prettify
+
+@decor
+def text():
+    return "text"
+
+print(text())  # если хотим передать сюда текст, то должны выше передать аргумент вместо фуу - (а)
+
+# ====
+def decor(foo):
+    def prettify(a):
+        return f"=={a}=="
+    return prettify
+
+@decor
+def text(a):
+    return a
+
+print(text('!!!!'))  # если хотим передать сюда текст, то должны выше передать аргумент вместо фуу - (а)
