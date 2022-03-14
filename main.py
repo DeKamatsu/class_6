@@ -50,3 +50,28 @@ with open("text.txt") as file:
     for num, string in enumerate(file.readlines()):
         print(str(num) + "===" + string)
 print(os.listdir)
+
+def generator(n):
+    for n in range(n):
+        yield num+1
+        yield num*10
+for x in generator(3):
+    print (x)
+
+# пример работы с декоратором (оборачивание замкнутой функции?)
+
+def decorator(funx):
+    def pretty_text(argum):
+        print("Стартуем")
+        a = funx(argum)
+        return f"=={a}=="
+    print("Оборачиваем")
+    return pretty_text
+
+@decorator #  наше имя декоратора, например @name(4), где 4 - условный пробрасываемый аргумент функции name
+def word(text: str):
+    print("Стартуем функцию")
+    return  text
+
+print(word("Yo-Ho-Ho!"))
+print("Завершаем")
