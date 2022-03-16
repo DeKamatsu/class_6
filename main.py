@@ -1,4 +1,8 @@
 import os
+import collections
+
+from _collections import deque
+
 
 """
 
@@ -99,3 +103,124 @@ def text(a):
     return a
 
 print(text('!!!!'))  # если хотим передать сюда текст, то должны выше передать аргумент вместо фуу - (а)
+# декоратор - функция, получающая и передающая функцию в качестве аргумента, т.е. prettify
+
+# ================================================================================================
+# class 7 - CLASS ================================================================================
+
+def empty ():
+    pass # временная заглушка
+
+print(empty())
+
+class MyClass:
+    pass
+
+class Ball:
+
+    shape = "круглый" # тут атрибуты класса ! к слову эти атрибуты не могут использоваться внутри методов класса
+
+    def __init__(self): # функция, задающая атрибуты класса при его создании
+        self.color = "Green"  # тут атрибуты объекта !
+        self.size = 15
+
+    def jump(self):
+        return self.size * 3
+        # return "High!"
+
+b = Ball()
+print(b.jump())
+print(b.color)
+
+Ball().shape = "квадратный"
+Ball().color = "Red"
+
+print(Ball().color, Ball.shape)
+
+a = Ball()
+print(a.shape)
+Ball.shape = "треугольный"
+b = Ball ()
+print(a.shape, b.shape)
+b.shape = "плоский"
+print(a.shape, b.shape)
+Ball.shape = "овальный"
+print(a.shape, b.shape)
+
+a2 = Ball()
+print(a2.size)
+Ball().size = 777
+b2 = Ball()
+b2.size = 4
+print(a2.size, b2.size)
+
+class BallNew:
+
+    size0 = 5
+    def __init__(self, color, size):
+        self.color = color
+        self.size = size
+
+    def jump(self, size2):
+        return self.size * size2
+
+    @classmethod
+    def some_method(cls): # нужен, когда мы можем передать класс, но без обязательного указания аттрибута
+        return "Some_Class"
+
+    @staticmethod
+    def fixed_method(): # нужен, когда мы можем передать класс, но без обязательного указания аттрибута
+        return "Fix"
+
+    def __call__(self):
+        return f"Я {self.color} мяч!"
+
+
+w = BallNew(color="Green", size=20)
+w2 = BallNew("Blue", 11)
+
+print(w.jump(10)) # атрибут метода!
+
+#print(w.classmethod())
+
+class BasketBall(BallNew):
+    def __init_subclass__(cls, **kwargs):
+        pass
+
+    def __call__(self, *args, **kwargs):
+        return f"Я баскетбольный {self.size} см мяч!"
+
+g = BasketBall("Black", 100)
+print(g())
+
+class Iterator:
+    """Это простой итератор"""
+
+    def __init__(self, start):
+        self.data = start
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        i = self.data
+        self.data += 1
+        return i
+
+d = Iterator(1).__doc__
+a = Iterator(1)
+print(d)
+print(next(a))
+print(next(a))
+print(next(a))
+
+def function(param1, param2):
+    """Простая функция:
+    : param1 : str
+    : param2 : int
+    """
+    pass
+
+function(1, 2).__doc__
+
+request.get()
